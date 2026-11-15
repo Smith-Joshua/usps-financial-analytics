@@ -1,0 +1,35 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "c5555555555555555555",
+  "position": {
+    "x": 20,
+    "y": 625,
+    "z": 1,
+    "height": 80,
+    "width": 1240,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Exploratory comparison: service definitions and reporting may change. FY2024/25 cost-method changes affect cost and contribution comparisons. Older values rounded to $100,000; source estimates.",
+                    "textStyle": {
+                      "fontSize": "11pt"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

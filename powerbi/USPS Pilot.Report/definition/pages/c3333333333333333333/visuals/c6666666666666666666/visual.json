@@ -1,0 +1,164 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "c6666666666666666666",
+  "position": {
+    "x": 20,
+    "y": 140,
+    "z": 2,
+    "height": 465,
+    "width": 1240,
+    "tabOrder": 3
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Scenarios"
+                    }
+                  },
+                  "Property": "Service Display"
+                }
+              },
+              "queryRef": "Scenarios.Service Display",
+              "nativeQueryRef": "Service Display",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Scenarios"
+                    }
+                  },
+                  "Property": "Method"
+                }
+              },
+              "queryRef": "Scenarios.Method",
+              "nativeQueryRef": "Method",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Scenarios"
+                    }
+                  },
+                  "Property": "Scenario revenue ($m)"
+                }
+              },
+              "queryRef": "Scenarios.Scenario revenue ($m)",
+              "nativeQueryRef": "Scenario revenue ($m)",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Scenarios"
+                    }
+                  },
+                  "Property": "Past WAPE (%)"
+                }
+              },
+              "queryRef": "Scenarios.Past WAPE (%)",
+              "nativeQueryRef": "Past WAPE (%)",
+              "active": true
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "values": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "16D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "14D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Illustrative FY2026 revenue ($ millions); prior backtest error (%)'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#333333'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Retrospective FY2026 revenue scenarios and four-test historical WAPE by service and method. These are illustrative, not a current forecast.'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

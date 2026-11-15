@@ -1,0 +1,35 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "c5555555555555555555",
+  "position": {
+    "x": 20,
+    "y": 625,
+    "z": 1,
+    "height": 80,
+    "width": 1240,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Contribution is before common costs, not net profit. Cost methodology changed in FY2020, FY2024 and FY2025 for affected services; do not treat changes as proven operating improvements.",
+                    "textStyle": {
+                      "fontSize": "11pt"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

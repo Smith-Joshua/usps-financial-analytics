@@ -1,0 +1,35 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "a5555555555555555555",
+  "position": {
+    "x": 20,
+    "y": 630,
+    "z": 1,
+    "height": 68,
+    "width": 1240,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Source: USPS FY2025 Cost and Revenue Analysis. Service costs do not necessarily add to published class costs. FY2024 and FY2025 methodology changed; year comparisons require review.",
+                    "textStyle": {
+                      "fontSize": "10pt"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,124 @@
+/// Candidate matched annual USPS service history for four selected services in FY2018–FY2025. Definitions and cost methodologies may change across years.
+table History
+	lineageTag: 7bd675c0-fb8a-431f-a2a1-ceee84785ce7
+
+	/// Nominal historical revenue in millions of US dollars, shown only for one service and one fiscal year. The underlying service match is a candidate.
+	measure 'Historical revenue ($m)' = IF(HASONEVALUE('History'[Service Display]) && HASONEVALUE('History'[Fiscal Year]), DIVIDE(MAX('History'[Revenue USD]), 1000000))
+		formatString: #,0.0;(#,0.0);0.0
+		lineageTag: ad06581b-ea68-42e4-88fa-6ae8b7d79a2e
+
+	/// Historical attributable cost in millions, shown for one service and year. Cost methods may change and values may overlap across services.
+	measure 'Historical attributable cost ($m)' = IF(HASONEVALUE('History'[Service Display]) && HASONEVALUE('History'[Fiscal Year]), DIVIDE(MAX('History'[Attributable Cost USD]), 1000000))
+		formatString: #,0.0;(#,0.0);0.0
+		lineageTag: c6e3e3fb-b172-47a7-99b8-f7cf01c80d77
+
+	/// Historical revenue less attributable cost in millions for one service and year. Excludes common costs and is not net profit.
+	measure 'Historical contribution ($m)' = IF(HASONEVALUE('History'[Service Display]) && HASONEVALUE('History'[Fiscal Year]), DIVIDE(MAX('History'[Contribution USD]), 1000000))
+		formatString: #,0.0;(#,0.0);0.0
+		lineageTag: 1d3cccc3-d0f3-4ee9-89d7-b7edfaa45daa
+
+	/// Nominal revenue for one selected service and fiscal year divided by that service’s 2018 revenue, multiplied by 100. Blank when the base is zero or unavailable; not inflation-adjusted.
+	measure 'Revenue index (2018 = 100)' = IF(HASONEVALUE('History'[Service Display]) && HASONEVALUE('History'[Fiscal Year]), DIVIDE(MAX('History'[Revenue USD]), CALCULATE(MAX('History'[Revenue USD]), REMOVEFILTERS('History'[Fiscal Year]), 'History'[Fiscal Year] = 2018)) * 100)
+		formatString: #,0.0;(#,0.0);0.0
+		lineageTag: 28cc56b6-c4ed-4d4b-9243-294311c862b4
+
+	/// USPS fiscal year of the reported observation; not a calendar-year date.
+	column 'Fiscal Year'
+		dataType: int64
+		lineageTag: cf4ee09e-c738-4bca-bd45-cb65506d8a5c
+		summarizeBy: none
+		sourceColumn: fiscal_year
+
+	/// Stable project identifier for the selected service; exact labels do not prove definitions remain comparable.
+	column 'Service ID'
+		dataType: string
+		lineageTag: 2bc8a74a-000e-4d96-8f2d-93d0268ae6dd
+		summarizeBy: none
+		sourceColumn: service_id
+
+	/// Published USPS mail class or service group containing the service.
+	column 'Service Group'
+		dataType: string
+		lineageTag: 54405086-8e9b-4a1b-b80c-c3ac9ee6674b
+		summarizeBy: none
+		sourceColumn: service_group
+
+	/// Published name of the individual service within its service group.
+	column Service
+		dataType: string
+		lineageTag: 29ad5d31-7305-40f9-97f1-089bb7dbdb03
+		summarizeBy: none
+		sourceColumn: service_label
+
+	/// Service group and service name combined to identify a service in report visuals.
+	column 'Service Display'
+		dataType: string
+		lineageTag: b27f5a87-ca90-436b-9749-1af9320ecbf3
+		summarizeBy: none
+		sourceColumn: service_display
+
+	/// Nominal reported revenue in US dollars; a source estimate, with precision documented in the source notes.
+	column 'Revenue USD'
+		dataType: double
+		lineageTag: b949af34-1fbb-4e3c-8ce6-f20177a8faca
+		summarizeBy: none
+		sourceColumn: revenue_usd
+
+	/// Service-attributable cost in US dollars, not all organizational costs; values may overlap and should not be summed across services without checking.
+	column 'Attributable Cost USD'
+		dataType: double
+		lineageTag: 8622a3db-4b8a-4955-b7b5-5aef4b8fe1ff
+		summarizeBy: none
+		sourceColumn: attributable_cost_usd
+
+	/// Revenue less attributable costs in US dollars. Excludes common costs and is not net profit.
+	column 'Contribution USD'
+		dataType: double
+		lineageTag: 135b5a27-c141-4c29-8188-300eab330f65
+		summarizeBy: none
+		sourceColumn: contribution_before_common_costs_usd
+
+	/// Link to the public USPS or Postal Regulatory Commission source document.
+	column 'Source URL'
+		dataType: string
+		lineageTag: e5b8cdcf-cc69-4993-af79-0a92adf65bae
+		summarizeBy: none
+		sourceColumn: source_url
+
+	/// Workbook cell or PDF reference used to locate the source observation.
+	column 'Source Locator'
+		dataType: string
+		lineageTag: 8f5a50ac-5c1b-43e0-a302-f4233ceff2bb
+		summarizeBy: none
+		sourceColumn: source_locator
+
+	/// Version or reporting year of the source from which the observation was extracted.
+	column 'Source Version'
+		dataType: string
+		lineageTag: c2a48789-2f0c-4ab6-aa63-80a66ee44b04
+		summarizeBy: none
+		sourceColumn: source_version
+
+	/// Notes on the reported precision of source estimates, not a claim that values are accurate to cents.
+	column 'Source Precision'
+		dataType: string
+		lineageTag: 37030272-0acb-497a-a6dd-64a8aebefa0f
+		summarizeBy: none
+		sourceColumn: source_precision
+
+	/// Caution on changes in product definitions, methods and nominal prices when comparing years.
+	column 'Comparability Note'
+		dataType: string
+		lineageTag: a33a06e0-c571-4aa8-b75c-8ca695db4e97
+		summarizeBy: none
+		sourceColumn: comparability_note
+
+	partition History = m
+		mode: directQuery
+		source =
+				let
+				    Source = Sql.Database("localhost", "USPSProfitabilityPilot"),
+				    Detail = Source{[Schema="gold", Item="usps_four_service_history_2018_2025"]}[Data]
+				in
+				    Detail
+

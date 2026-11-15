@@ -1,0 +1,35 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "c5555555555555555555",
+  "position": {
+    "x": 20,
+    "y": 625,
+    "z": 1,
+    "height": 80,
+    "width": 1240,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Past WAPE = weighted absolute percentage error across FOUR FY2022–FY2025 tests, used to compare these methods; not independent proof of future accuracy. Hypothetical revenue, not profit or a confidence range.",
+                    "textStyle": {
+                      "fontSize": "11pt"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

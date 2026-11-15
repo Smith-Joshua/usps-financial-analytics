@@ -1,0 +1,196 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "a4444444444444444444",
+  "position": {
+    "x": 20,
+    "y": 120,
+    "z": 3,
+    "height": 505,
+    "width": 1240,
+    "tabOrder": 3
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Service Detail"
+                    }
+                  },
+                  "Property": "Service Display"
+                }
+              },
+              "queryRef": "Service Detail.Service Display",
+              "nativeQueryRef": "Service Display",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Service Detail"
+                    }
+                  },
+                  "Property": "Revenue ($m)"
+                }
+              },
+              "queryRef": "Service Detail.Revenue ($m)",
+              "nativeQueryRef": "Revenue ($m)",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Service Detail"
+                    }
+                  },
+                  "Property": "Attributable cost ($m)"
+                }
+              },
+              "queryRef": "Service Detail.Attributable cost ($m)",
+              "nativeQueryRef": "Attributable cost ($m)",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Service Detail"
+                    }
+                  },
+                  "Property": "Contribution before common costs ($m)"
+                }
+              },
+              "queryRef": "Service Detail.Contribution before common costs ($m)",
+              "nativeQueryRef": "Contribution ($m)",
+              "active": true
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Service-level revenue and cost ($ millions)'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#333333'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'FY2025 revenue, attributable cost, and contribution before common costs by individual service, in millions of dollars.'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "5296bc4d00a17e011e31",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Service Detail"
+              }
+            },
+            "Property": "Service Display"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "2a5c78daa982ab0d9e02",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Service Detail"
+              }
+            },
+            "Property": "Revenue ($m)"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "32335dbb54a9b048c6b3",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Service Detail"
+              }
+            },
+            "Property": "Attributable cost ($m)"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "127a11c25e30ddb30472",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Service Detail"
+              }
+            },
+            "Property": "Contribution before common costs ($m)"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

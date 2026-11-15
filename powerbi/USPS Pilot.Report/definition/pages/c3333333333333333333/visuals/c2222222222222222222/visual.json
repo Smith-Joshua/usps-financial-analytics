@@ -1,0 +1,35 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "c2222222222222222222",
+  "position": {
+    "x": 20,
+    "y": 55,
+    "z": 1,
+    "height": 66,
+    "width": 1240,
+    "tabOrder": 2
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Retrospective illustration using FY2018–FY2025 annual reports: last-year carry-forward versus an eight-year linear trend. FY2026 service actuals are not shown.",
+                    "textStyle": {
+                      "fontSize": "12pt"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

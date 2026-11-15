@@ -1,0 +1,151 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "c4444444444444444444",
+  "position": {
+    "x": 20,
+    "y": 125,
+    "z": 2,
+    "height": 485,
+    "width": 1240,
+    "tabOrder": 3
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "History"
+                    }
+                  },
+                  "Property": "Fiscal Year"
+                }
+              },
+              "queryRef": "History.Fiscal Year",
+              "nativeQueryRef": "Fiscal Year",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "History"
+                    }
+                  },
+                  "Property": "Service Display"
+                }
+              },
+              "queryRef": "History.Service Display",
+              "nativeQueryRef": "Service Display",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "History"
+                    }
+                  },
+                  "Property": "Historical revenue ($m)"
+                }
+              },
+              "queryRef": "History.Historical revenue ($m)",
+              "nativeQueryRef": "Historical revenue ($m)",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "History"
+                    }
+                  },
+                  "Property": "Historical attributable cost ($m)"
+                }
+              },
+              "queryRef": "History.Historical attributable cost ($m)",
+              "nativeQueryRef": "Historical attributable cost ($m)",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "History"
+                    }
+                  },
+                  "Property": "Historical contribution ($m)"
+                }
+              },
+              "queryRef": "History.Historical contribution ($m)",
+              "nativeQueryRef": "Historical contribution ($m)",
+              "active": true
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Reported values by service and year ($ millions)'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#333333'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Reported annual revenue, attributable costs, and contribution for four selected services from 2018 through 2025, in millions of dollars.'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

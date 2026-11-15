@@ -1,0 +1,100 @@
+/// Retrospective FY2026 revenue scenarios calculated as of FY2025, with four one-year-ahead historical tests. Not a current outlook or operational forecast.
+table Scenarios
+	lineageTag: c18976b8-3cdf-4fd6-9f1f-631202beeda9
+
+	/// Retrospective FY2026 scenario revenue in millions for one service, method and forecast year. It uses information available through FY2025 and is not a current outlook.
+	measure 'Scenario revenue ($m)' = IF(HASONEVALUE('Scenarios'[Service Display]) && HASONEVALUE('Scenarios'[Method]) && HASONEVALUE('Scenarios'[Forecast Year]), DIVIDE(MAX('Scenarios'[Revenue USD]), 1000000))
+		formatString: #,0.0;(#,0.0);0.0
+		lineageTag: 7c320a72-dc01-4aa0-82e2-1878c0c8eb93
+
+	/// Weighted absolute percentage error, in percentage points, from four rolling one-year-ahead historical tests for the selected service and method. It does not establish future accuracy.
+	measure 'Past WAPE (%)' = IF(HASONEVALUE('Scenarios'[Service Display]) && HASONEVALUE('Scenarios'[Method]) && HASONEVALUE('Scenarios'[Forecast Year]), MAX('Scenarios'[Historical WAPE Percent]))
+		formatString: #,0.0;(#,0.0);0.0
+		lineageTag: 9aac0322-08b3-47e0-a859-daff165f5021
+
+	/// Stable project identifier for the selected service; exact labels do not prove definitions remain comparable.
+	column 'Service ID'
+		dataType: string
+		lineageTag: 405930a4-d606-4b6d-9cb1-95714462eadf
+		summarizeBy: none
+		sourceColumn: service_id
+
+	/// Published USPS mail class or service group containing the service.
+	column 'Service Group'
+		dataType: string
+		lineageTag: 63079ce8-5ee1-40d9-a7b0-7b1d7d184eac
+		summarizeBy: none
+		sourceColumn: service_group
+
+	/// Published name of the individual service within its service group.
+	column Service
+		dataType: string
+		lineageTag: 775200a3-99b4-4531-8092-93309d4a0a72
+		summarizeBy: none
+		sourceColumn: service_label
+
+	/// Service group and service name combined to identify a service in report visuals.
+	column 'Service Display'
+		dataType: string
+		lineageTag: 94dc952d-7fea-491e-a53d-3f07c8751e3d
+		summarizeBy: none
+		sourceColumn: service_display
+
+	/// Fiscal year represented by the retrospective scenario; the current model illustrates FY2026.
+	column 'Forecast Year'
+		dataType: int64
+		lineageTag: 72c7e6c0-93b9-4376-8e8c-80d34f6c2213
+		summarizeBy: none
+		sourceColumn: forecast_year
+
+	/// Most recent fiscal year used as input in the retrospective scenario, FY2025.
+	column 'Latest Input Fiscal Year'
+		dataType: int64
+		lineageTag: ff2f527c-c454-4ced-aa3f-9cd61fdc22ad
+		summarizeBy: none
+		sourceColumn: latest_input_fiscal_year
+
+	/// Scenario method: last-year baseline or linear trend, calculated from earlier annual observations.
+	column Method
+		dataType: string
+		lineageTag: 6c77adbc-dee4-4d4d-b2c6-94f929577a3b
+		summarizeBy: none
+		sourceColumn: method
+
+	/// Model-generated retrospective FY2026 revenue scenario in nominal US dollars, estimated using data through FY2025. This is not reported actual revenue or a current forecast.
+	column 'Revenue USD'
+		dataType: double
+		lineageTag: c912791b-930f-4f10-9289-7394a5cc5d9c
+		summarizeBy: none
+		sourceColumn: revenue_usd
+
+	/// Number of one-year-ahead historical forecast tests used to calculate the historical WAPE.
+	column 'Backtest Points'
+		dataType: int64
+		lineageTag: 4d23bb2d-ef65-4086-8867-18a17be110bc
+		summarizeBy: none
+		sourceColumn: backtest_points
+
+	/// Weighted absolute percentage error across four historical one-year-ahead tests, expressed as percentage points; lower is better in this small sample.
+	column 'Historical WAPE Percent'
+		dataType: double
+		lineageTag: b5654366-b257-4215-b830-4a5d690dd7a1
+		summarizeBy: none
+		sourceColumn: historical_wape_pct
+
+	/// Limitations of the retrospective scenario, including time period, small backtest and changes to source methods.
+	column 'Model Note'
+		dataType: string
+		lineageTag: 708550a9-5bd6-442f-b512-705607d73f7d
+		summarizeBy: none
+		sourceColumn: model_note
+
+	partition Scenarios = m
+		mode: directQuery
+		source =
+				let
+				    Source = Sql.Database("localhost", "USPSProfitabilityPilot"),
+				    Detail = Source{[Schema="gold", Item="usps_revenue_scenarios_asof_2025"]}[Data]
+				in
+				    Detail
+

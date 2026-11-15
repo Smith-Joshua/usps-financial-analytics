@@ -1,0 +1,98 @@
+/// FY2025 market-dominant service rows, one row per individual service. Revenue and attributable costs are estimates; contribution excludes common costs.
+table 'Service Detail'
+	lineageTag: 8700b74c-96d8-412d-b58f-b5faeae7d183
+
+	/// FY2025 revenue in millions of US dollars for a single selected service. Blank for multiple services to avoid unsafe totals.
+	measure 'Revenue ($m)' = IF(HASONEVALUE('Service Detail'[Service Display]), DIVIDE(MAX('Service Detail'[Revenue USD]), 1000000))
+		formatString: #,0.0;(#,0.0);0.0
+		lineageTag: edcf3e60-1ba5-49b1-bf17-c5bcbd6a27ff
+
+	/// FY2025 attributable cost in millions of US dollars for one service. Blank for multiple services because published product costs may overlap.
+	measure 'Attributable cost ($m)' = IF(HASONEVALUE('Service Detail'[Service Display]), DIVIDE(MAX('Service Detail'[Attributable Cost USD]), 1000000))
+		formatString: #,0.0;(#,0.0);0.0
+		lineageTag: b36568ef-bf99-45f9-90b2-da1b4951ab7f
+
+	/// FY2025 revenue less attributable cost in millions for one service. Excludes common costs and is not net profit; blank for multiple services.
+	measure 'Contribution before common costs ($m)' = IF(HASONEVALUE('Service Detail'[Service Display]), DIVIDE(MAX('Service Detail'[Contribution Before Common Costs USD]), 1000000))
+		formatString: #,0.0;(#,0.0);0.0
+		lineageTag: bb0c3fbb-5b4e-442d-8a45-ab19df633d27
+
+	/// USPS fiscal year of the reported observation; not a calendar-year date.
+	column 'Fiscal Year'
+		dataType: int64
+		lineageTag: 2520cfd9-575c-4d96-aaec-d4b65d15e133
+		summarizeBy: none
+		sourceColumn: fiscal_year
+
+	/// Published USPS mail class or service group containing the service.
+	column 'Service Group'
+		dataType: string
+		lineageTag: 88d9f627-7bda-4b17-8983-cbe87b92ed76
+		summarizeBy: none
+		sourceColumn: service_group
+
+	/// Published name of the individual service within its service group.
+	column Service
+		dataType: string
+		lineageTag: f41e969f-511c-4d8f-94aa-c0d46fc3f714
+		summarizeBy: none
+		sourceColumn: service_label
+
+	/// Service group and service name combined to identify a service in report visuals.
+	column 'Service Display'
+		dataType: string
+		lineageTag: be06be7c-8d4c-4c68-ab02-335f8081ee09
+		summarizeBy: none
+		sourceColumn: service_display
+
+	/// Nominal reported revenue in US dollars; a source estimate, with precision documented in the source notes.
+	column 'Revenue USD'
+		dataType: double
+		lineageTag: 8cae65b9-a2f6-46a0-8d10-a889a6f09041
+		summarizeBy: none
+		sourceColumn: revenue_usd
+
+	/// Service-attributable cost in US dollars, not all organizational costs; values may overlap and should not be summed across services without checking.
+	column 'Attributable Cost USD'
+		dataType: double
+		lineageTag: aefdb808-c47f-404b-8fcd-7be558a78464
+		summarizeBy: none
+		sourceColumn: attributable_cost_usd
+
+	/// Revenue less attributable costs in US dollars. Excludes common costs and is not net profit.
+	column 'Contribution Before Common Costs USD'
+		dataType: double
+		lineageTag: 3d0b1bbf-5d06-40c2-bca9-7247ab3db419
+		summarizeBy: none
+		sourceColumn: contribution_before_common_costs_usd
+
+	/// Workbook cell or PDF reference used to locate the source observation.
+	column 'Source Locator'
+		dataType: string
+		lineageTag: 0c6b9f7b-dbec-48c9-b131-f50a71cc8eda
+		summarizeBy: none
+		sourceColumn: source_locator
+
+	/// Notes on the reported precision of source estimates, not a claim that values are accurate to cents.
+	column 'Source Precision'
+		dataType: string
+		lineageTag: 8c789133-956c-49bb-9edf-f78f74c5ffc4
+		summarizeBy: none
+		sourceColumn: source_precision
+
+	/// Link to the public USPS or Postal Regulatory Commission source document.
+	column 'Source URL'
+		dataType: string
+		lineageTag: b657ed5a-ce68-4465-b089-7e3ef78a38a7
+		summarizeBy: none
+		sourceColumn: source_url
+
+	partition 'Service Detail' = m
+		mode: directQuery
+		source =
+				let
+				    Source = Sql.Database("localhost", "USPSProfitabilityPilot"),
+				    Detail = Source{[Schema="gold", Item="usps_service_2025_report_detail"]}[Data]
+				in
+				    Detail
+
